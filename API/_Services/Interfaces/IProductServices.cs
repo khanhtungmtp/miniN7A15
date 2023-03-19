@@ -6,5 +6,7 @@ namespace API._Services.Interfaces
     {
         List<Product> GetAllProducts();
         Task<bool> AddProduct();
+        Task<bool> Update();
+        Task<Product> GetProductById(string id);
     }
 }

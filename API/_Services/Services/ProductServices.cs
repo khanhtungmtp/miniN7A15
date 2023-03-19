@@ -37,5 +37,18 @@ namespace API._Services.Services
             new() {Id=Guid.NewGuid(),Name="Product 5", Price=462500, Stock=129},
             new() {Id=Guid.NewGuid(),Name="Product 6", Price=436500, Stock=192},
         };
+
+        public async Task<Product> GetProductById(string id)
+        {
+            return await _repo.Product.FindById(id);
+        }
+
+        public async Task<bool> Update()
+        {
+            var product = await _repo.Product.FindById("8387028A-7353-4548-ADF2-40E559A45721");
+            product.Name = "Tung";
+            _repo.Product.Update(product);
+            return await _repo.Product.SaveAsync();
+        }
     }
 }

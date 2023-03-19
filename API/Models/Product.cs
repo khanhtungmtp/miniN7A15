@@ -6,7 +6,7 @@ namespace API.Models
     {
         public string Name { get; set; } = default!;
         public int Stock { get; set; }
-        public long Price { get; set; }
+        public float Price { get; set; }
         public ICollection<Order> Orders { get; set; } = default!;
     }
 }
