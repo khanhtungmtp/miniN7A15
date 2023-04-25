@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AdminModule } from './admin/admin.module';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,9 +15,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     AdminModule,
     BrowserAnimationsModule,
-
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: 'baseUrl', useValue: 'http://localhost:5290/api', multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

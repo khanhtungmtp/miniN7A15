@@ -1,23 +1,28 @@
 using API._Repositories;
 using API._Services.Interfaces;
+using API.Dtos;
 using API.Models;
+using AutoMapper;
 
 namespace API._Services.Services
 {
     public class ProductServices : IProductServices
     {
         private readonly IRepositoryAccessor _repo;
+        private readonly IMapper _mapper;
 
-        public ProductServices(IRepositoryAccessor repo)
+        public ProductServices(IRepositoryAccessor repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
-        public async Task<bool> AddProduct()
+        public async Task<bool> AddProduct(ProductDto model)
         {
             try
             {
-                await _repo.Product.AddMultiple(GetAllProducts());
+                var modelMapper = _mapper.Map<Product>(model);
+                await _repo.Product.AddAsync(modelMapper);
                 return await _repo.Product.SaveAsync();
             }
             catch (System.Exception err)

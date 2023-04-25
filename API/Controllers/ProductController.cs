@@ -1,4 +1,6 @@
 using API._Services.Interfaces;
+using API.Dtos;
+using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -19,7 +21,7 @@ namespace API.Controllers
         [HttpGet("GetProductById")]
         public async Task<IActionResult> GetProductById(string id) => Ok(await _services.GetProductById(id));
         [HttpPost]
-        public async Task<IActionResult> AddProducts() => Ok(await _services.AddProduct());
+        public async Task<IActionResult> AddProducts(ProductDto model) => Ok(await _services.AddProduct(model));
         [HttpPut]
         public async Task<IActionResult> UpdateProduct() => Ok(await _services.Update());
 

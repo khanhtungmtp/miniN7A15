@@ -10,8 +10,10 @@ builder.Services.AddDepedencyInjectionConfig();
 // add database
 builder.Services.AddDatabaseConfig(builder.Configuration);
 // add cord
-builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy => policy.WithOrigins("http://localhost:4200/", "https://localhost:4200/").AllowAnyHeader().AllowAnyMethod()));
+builder.Services.AddCors(opt => opt.AddPolicy("AllowOrigin", policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod()));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// add automapper
+builder.Services.AddAutoMapper(typeof(AddAutoMapperProfilesConfig));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -24,10 +26,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowOrigin");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-app.UseCors();
 app.MapControllers();
 
 app.Run();

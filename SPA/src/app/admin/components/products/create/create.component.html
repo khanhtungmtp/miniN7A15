@@ -1,0 +1,15 @@
+<mat-form-field appearance="fill" class="product-create">
+  <mat-label>Name</mat-label>
+  <input matInput type="text" [(ngModel)]="model.name">
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Stock</mat-label>
+  <input matInput min="0" value="0" type="number" [(ngModel)]="model.stock">
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Price</mat-label>
+  <input matInput type="number" [(ngModel)]="model.price">
+</mat-form-field>
+
+<button mat-raised-button color="accent" class="btn"
+  (click)="createProduct()">Create</button>
