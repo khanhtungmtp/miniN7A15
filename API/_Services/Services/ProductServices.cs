@@ -3,6 +3,7 @@ using API._Services.Interfaces;
 using API.Dtos;
 using API.Models;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace API._Services.Services
 {
@@ -17,7 +18,7 @@ namespace API._Services.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> AddProduct(ProductDto model)
+        public async Task<bool> AddProduct(ProductCreateDto model)
         {
             try
             {
@@ -33,15 +34,11 @@ namespace API._Services.Services
 
         }
 
-        public List<Product> GetAllProducts() => new()
+        public async Task<List<ProductListDto>> GetAllProducts()
         {
-            new() {Id=Guid.NewGuid(),Name="Product 1", Price=1500, Stock=10},
-            new() {Id=Guid.NewGuid(),Name="Product 2", Price=6500, Stock=190},
-            new() {Id=Guid.NewGuid(),Name="Product 3", Price=46500, Stock=199},
-            new() {Id=Guid.NewGuid(),Name="Product 4", Price=46500, Stock=19},
-            new() {Id=Guid.NewGuid(),Name="Product 5", Price=462500, Stock=129},
-            new() {Id=Guid.NewGuid(),Name="Product 6", Price=436500, Stock=192},
-        };
+            List<Product> data = await _repo.Product.FindAll().ToListAsync();
+            return _mapper.Map<List<ProductListDto>>(data);
+        }
 
         public async Task<Product> GetProductById(string id)
         {

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { NotiflixService } from './notiflix.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,11 +9,12 @@ export class CommonService {
 
   constructor(
     private http: HttpClient,
+    public notiflix: NotiflixService,
     @Inject("baseUrl") private baseUrl: string
   ) {
   }
   private url(requestParameter: Partial<RequestParameters>): string {
-    return `${requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl}/${requestParameter.controller}${requestParameter.action ? ` /${requestParameter.action}` : ""}`;
+    return `${requestParameter.baseUrl ? requestParameter.baseUrl : this.baseUrl}/${requestParameter.controller}${requestParameter.action ? `/${requestParameter.action}` : ""}`;
   }
   get<T>(requestParameter: Partial<RequestParameters>, id?: string): Observable<T> {
     let url: string = "";

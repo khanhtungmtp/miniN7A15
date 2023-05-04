@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Product_Create } from '../_models/product';
+import { Product_Create, Product_List } from '../_models/product';
 import { CommonService } from './common/common.service';
 
 @Injectable({
@@ -11,7 +11,11 @@ export class ProductService {
     private common: CommonService
   ) { }
   create(model: Product_Create) {
-    return this.common.post({ controller: this.controller }, model)
+    return this.common.post<Product_Create>({ controller: this.controller, action: 'CreateProduct' }, model)
+  }
+
+  getAllProduct() {
+    return this.common.get<Product_List[]>({ controller: this.controller, action: 'GetAllProduct' })
   }
 
 }

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { MessageConstants } from './../../../../_core/_constants/message.enum';
 import { Component } from '@angular/core';
 import { Product_Create } from 'src/app/_core/_models/product';
@@ -27,16 +28,31 @@ export class CreateComponent extends InjectBase {
   }
   createProduct() {
     this.notiflix.showLoading();
+    console.log(this.model);
+
     this.service.create(this.model).subscribe({
       next: (res) => {
-        this.model = res
+        this.model = {
+          name: "",
+          price: 0,
+          stock: 0
+        }
         this.notiflix.success(MessageConstants.CREATED_OK_MSG)
         this.notiflix.hideLoading();
       },
-      error: () => {
+      error: (e: HttpErrorResponse) => {
+        let errorMessage = '';
+        for (const [key, value] of Object.entries(e.error)) {
+          for (const message of value as string[]) {
+            errorMessage += `${message}\n`;
+          }
+        }
+
+        console.log(errorMessage);
+        this.notiflix.error(errorMessage);
+
         this.notiflix.hideLoading();
-        this.notiflix.error(MessageConstants.UN_KNOWN_ERROR)
       }
-    })
+    }).add(this.notiflix.hideLoading())
   }
 }

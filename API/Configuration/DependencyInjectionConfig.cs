@@ -8,6 +8,7 @@ namespace API.Configuration
     {
         public static void AddDepedencyInjectionConfig(this IServiceCollection services)
         {
+            if (services == null) throw new ArgumentNullException(nameof(services));
             // add repostory
             services.AddScoped<IRepositoryAccessor, RepositoryAccessor>();
             // add services

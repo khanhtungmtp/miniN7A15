@@ -9,7 +9,8 @@ namespace API.Configuration
     {
         public AddAutoMapperProfilesConfig()
         {
-            CreateMap<ProductDto, Product>();
+            CreateMap<ProductCreateDto, Product>();
+            CreateMap<ProductListDto, Product>().ReverseMap();
         }
     }
 }
